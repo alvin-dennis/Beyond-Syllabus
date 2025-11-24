@@ -1,6 +1,5 @@
 "use client";
 
-import "katex/dist/katex.min.css";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ChatMessage from "@/app/chat/_components/ChatMessage";
