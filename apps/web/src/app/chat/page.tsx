@@ -38,7 +38,7 @@ export default function ChatHome() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setModuleTitle(params.get("title") || "AI Chat");
+    setModuleTitle(params.get("title") || "");
     setModuleContent(params.get("content") || "");
   }, []);
 
@@ -118,7 +118,7 @@ export default function ChatHome() {
   const isEmpty = !moduleTitle && !moduleContent;
 
   return (
-    <div className="flex flex-col min-h-[97dvh] md:h-[97vh] md:w-[98%] mx-auto md:my-4 md:rounded-3xl
+    <div className="flex flex-col min-h-[98dvh] md:h-[97vh] md:w-[98%] mx-auto md:my-4 md:rounded-3xl
   w-full bg-[#F7F7F8] dark:bg-gradient-to-b from-[#22283E] to-[#26387C] overflow-hidden">
 
       {!isInitial && (
@@ -129,7 +129,7 @@ export default function ChatHome() {
 
       <div
         ref={scrollContainerRef}
-        className={`flex-1 overflow-y-auto px-6 py-4 ${isMobile ? "pb-44" : "pb-36"}`}
+        className={`flex-1 overflow-y-auto h-full px-6 py-4 ${isMobile ? "pb-50" : "pb-36"}`}
       >
         {isInitial ? (
           <div className="relative flex flex-col items-center justify-center text-center h-full">
@@ -154,31 +154,6 @@ export default function ChatHome() {
               disabled={loading}
               className="w-full max-w-3xl"
             />
-
-            <AnimatePresence>
-              {suggestions.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="flex flex-wrap gap-2 mt-2 justify-center"
-                >
-                  {suggestions.map((s, idx) => (
-                    <Button
-                      key={idx}
-                      size="sm"
-                      variant="outline"
-                      onClick={() => handleSuggestionClick(s)}
-                      disabled={loading}
-                      className="rounded-full text-xs sm:text-sm px-3 py-1.5
-                        max-w-[90%] sm:max-w-[400px] whitespace-normal break-words text-center"
-                    >
-                      {s}
-                    </Button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
           </div>
         ) : (
           <div className="flex flex-col space-y-4 mt-5">
@@ -214,7 +189,7 @@ export default function ChatHome() {
       </div>
 
       {!isInitial && isMobile && (
-        <div className="fixed bottom-0 left-0 w-full px-6 py-4 bg-[#F7F7F8] dark:bg-[#22283E] z-50">
+        <div className="fixed bottom-0 left-0 w-full px-6 py-4 backdrop-blur-md z-50">
           <ChatInput
             onSend={handleSend}
             onModelChange={handleModelChange}
